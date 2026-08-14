@@ -1,102 +1,215 @@
-import Image, { type ImageProps } from "next/image";
-import { Button } from "@repo/ui/button";
-import styles from "./page.module.css";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+import { FadeUp } from "@/components/motion-wrapper";
+import {
+  BookOpen,
+  Target,
+  Trophy,
+  ArrowRight,
+} from "lucide-react";
 
-type Props = Omit<ImageProps, "src"> & {
-  srcLight: string;
-  srcDark: string;
-};
+export default async function Home() {
+  const supabase = await createClient();
 
-const ThemeImage = (props: Props) => {
-  const { srcLight, srcDark, ...rest } = props;
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user) {
+    redirect("/dashboard");
+  }
 
   return (
-    <>
-      <Image {...rest} src={srcLight} className="imgLight" />
-      <Image {...rest} src={srcDark} className="imgDark" />
-    </>
-  );
-};
+    <main className="relative min-h-screen overflow-hidden bg-[#050816] text-white">
 
-export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <ThemeImage
-          className={styles.logo}
-          srcLight="turborepo-dark.svg"
-          srcDark="turborepo-light.svg"
-          alt="Turborepo logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>apps/web/app/page.tsx</code>
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+      {/* Background Glow */}
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new/clone?demo-description=Learn+to+implement+a+monorepo+with+a+two+Next.js+sites+that+has+installed+three+local+packages.&demo-image=%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F4K8ZISWAzJ8X1504ca0zmC%2F0b21a1c6246add355e55816278ef54bc%2FBasic.png&demo-title=Monorepo+with+Turborepo&demo-url=https%3A%2F%2Fexamples-basic-web.vercel.sh%2F&from=templates&project-name=Monorepo+with+Turborepo&repository-name=monorepo-turborepo&repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fturborepo%2Ftree%2Fmain%2Fexamples%2Fbasic&root-directory=apps%2Fdocs&skippable-integrations=1&teamSlug=vercel&utm_source=create-turbo"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://turborepo.dev/docs?utm_source"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+      <div className="absolute inset-0 -z-10">
+
+        <div className="absolute left-0 top-0 h-96 w-96 rounded-full bg-green-500/20 blur-[140px]" />
+
+        <div className="absolute right-0 top-32 h-96 w-96 rounded-full bg-yellow-400/10 blur-[150px]" />
+
+        <div className="absolute bottom-0 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-emerald-500/10 blur-[160px]" />
+
+      </div>
+
+      {/* Navigation */}
+
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
+
+        <h1 className="text-2xl font-bold tracking-wide">
+          Mission 
+          <span className="text-green-400">
+             CDS
+          </span>
+        </h1>
+
+        <div className="flex gap-4">
+
+          
+
         </div>
-        <Button appName="web" className={styles.secondary}>
-          Open alert
-        </Button>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com/templates?search=turborepo&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://turborepo.dev?utm_source=create-turbo"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to turborepo.dev →
-        </a>
-      </footer>
-    </div>
+
+      </nav>
+
+      {/* Hero */}
+
+      <section className="mx-auto flex min-h-[80vh] max-w-7xl flex-col items-center justify-center px-6 text-center">
+
+        <FadeUp>
+
+          <span className="rounded-full border border-green-500/30 bg-green-500/10 px-5 py-2 text-sm text-green-400">
+            🇮🇳 India&apos;s Smart CDS Preparation Platform
+          </span>
+
+        </FadeUp>
+
+        <FadeUp delay={0.2}>
+
+          <h1 className="mt-8 max-w-5xl text-5xl font-extrabold leading-tight md:text-7xl">
+
+            Prepare for
+
+            <span className="bg-gradient-to-r from-green-400 via-emerald-300 to-yellow-400 bg-clip-text text-transparent">
+
+              {" "}
+              CDS{" "}
+
+            </span>
+
+            Like Never Before
+
+          </h1>
+
+        </FadeUp>
+
+        <FadeUp delay={0.4}>
+
+          <p className="mt-8 max-w-3xl text-lg leading-8 text-gray-400">
+
+            Organize your preparation with Daily Missions,
+            Track your Progress,
+            Build Study Streaks,
+            Analyze Performance,
+            and stay consistent until exam day.
+
+          </p>
+
+        </FadeUp>
+
+        <FadeUp delay={0.6}>
+
+          <div className="mt-12 flex flex-wrap justify-center gap-5">
+
+            <Link
+              href="/auth/sign-up"
+              className="group flex items-center gap-2 rounded-xl bg-green-600 px-8 py-4 text-lg font-semibold transition duration-300 hover:-translate-y-1 hover:scale-105 hover:bg-green-500"
+            >
+              Start Preparing
+
+              <ArrowRight
+                className="transition group-hover:translate-x-1"
+                size={20}
+              />
+
+            </Link>
+
+            <Link
+              href="/auth/sign-in"
+              className="rounded-xl border border-white/10 px-8 py-4 text-lg font-semibold transition duration-300 hover:-translate-y-1 hover:border-green-400"
+            >
+              Sign In
+            </Link>
+
+          </div>
+
+        </FadeUp>
+
+      </section>
+
+      {/* Feature Cards */}
+
+      <section className="mx-auto grid max-w-7xl gap-8 px-6 pb-24 md:grid-cols-3">
+
+        <FadeUp delay={0.8}>
+
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:border-green-500/40">
+
+            <Target
+              className="mb-6 text-green-400"
+              size={40}
+            />
+
+            <h2 className="text-2xl font-bold">
+
+              Daily Missions
+
+            </h2>
+
+            <p className="mt-4 text-gray-400">
+
+              Plan and complete your daily study tasks with priority tracking and deadlines.
+
+            </p>
+
+          </div>
+
+        </FadeUp>
+
+        <FadeUp delay={1}>
+
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:border-green-500/40">
+
+            <BookOpen
+              className="mb-6 text-yellow-400"
+              size={40}
+            />
+
+            <h2 className="text-2xl font-bold">
+
+              Progress Tracking
+
+            </h2>
+
+            <p className="mt-4 text-gray-400">
+
+              Visual dashboards, study heatmaps and progress analytics help you stay consistent.
+
+            </p>
+
+          </div>
+
+        </FadeUp>
+
+        <FadeUp delay={1.2}>
+
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:border-green-500/40">
+
+            <Trophy
+              className="mb-6 text-orange-400"
+              size={40}
+            />
+
+            <h2 className="text-2xl font-bold">
+
+              Stay Motivated
+
+            </h2>
+
+            <p className="mt-4 text-gray-400">
+
+              Build study streaks, unlock achievements and prepare consistently until exam day.
+
+            </p>
+
+          </div>
+
+        </FadeUp>
+
+      </section>
+
+    </main>
   );
 }
