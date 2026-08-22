@@ -27,7 +27,7 @@ export default async function TodaysMissions() {
     <GlassCard className="p-6">
 
       <h2 className="mb-6 text-2xl font-bold">
-        Today Missions
+        Today Missions is completeing week 13
       </h2>
 
       {!missions?.length ? (
